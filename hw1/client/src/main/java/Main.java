@@ -3,8 +3,11 @@ import model.ClientThread;
 public class Main {
 
     public static void main(String[] args) {
-        test(1, 1, 0,"http://54.149.200.68:3000");
-//        test(10, 10, 2,"http://54.149.200.68:3000");
+        String javaServerAddr = "http://34.214.59.208:8080/AlbumServlet_war";
+//        String javaServerAddr = "http://localhost:8080/AlbumServlet_war_exploded/";
+        String goServerAddr = "http://localhost:3000";
+//        test(1, 1, 0, javaServerAddr);
+        test(10, 10, 2, javaServerAddr);
     }
 
     public static void test(int threadGroupSize, int numThreadGroups, long delay, String IPAddr) {
@@ -34,7 +37,7 @@ public class Main {
                 for (int j = 0; j < threadGroupSize; j++) {
                     currGroup[j].join();
                 }
-                Thread.sleep(delay*1000);
+//                Thread.sleep(delay * 1000);
             } catch (InterruptedException e) {
             }
         }

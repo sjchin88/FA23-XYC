@@ -6,7 +6,6 @@ import java.util.Map;
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
@@ -14,11 +13,9 @@ import org.apache.commons.httpclient.params.HttpMethodParams;
 
 public class CallAPIs {
 
-    private static final HttpClient client = new HttpClient(
-        new MultiThreadedHttpConnectionManager());
     private static Gson gson = new Gson();
 
-    public static void postAPI(String IPAddr) {
+    public static void postAPI(String IPAddr, HttpClient client) {
 
         PostMethod post = new PostMethod(IPAddr + "/albums");
         post.getParams().setParameter(
@@ -37,23 +34,21 @@ public class CallAPIs {
             int statusCode = client.executeMethod(post);
 
             if (statusCode >= 400 && statusCode < 600) {
-                System.out.println("failed");
+//                System.out.println("failed");
             }
 
             if (statusCode == HttpStatus.SC_OK) {
                 // TODO: parse the request
-                System.out.println("works");
+//                System.out.println("works");
             }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             post.releaseConnection();
         }
-
-
     }
 
-    public static void getAPI(String IPAddr) {
+    public static void getAPI(String IPAddr, HttpClient client) {
         GetMethod get = new GetMethod(IPAddr + "/albums/1");
         get.getParams().setParameter(
             HttpMethodParams.RETRY_HANDLER,
