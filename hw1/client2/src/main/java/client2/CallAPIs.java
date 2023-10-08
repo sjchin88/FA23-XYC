@@ -1,4 +1,4 @@
-package model;
+package client2;
 
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -15,7 +15,7 @@ public class CallAPIs {
     private static final int MAX_RETRIES = 5;
     private static Gson gson = new Gson();
 
-    public static void postAPI(String IPAddr, OkHttpClient client) {
+    public static int postAPI(String IPAddr, OkHttpClient client) {
         String json = gson.toJson(Map.of("profile",
             Map.of("artist", "Artist Name", "title", "Album Title", "year", "2022")));
 
@@ -27,13 +27,16 @@ public class CallAPIs {
 
         int attempts = 0;
         boolean done = false;
+        int statusCode = 0;
         while (attempts <= MAX_RETRIES && !done) {
             try (Response response = client.newCall(request).execute()) {
                 if (response.isSuccessful()){
-                    System.out.println("works");
+//                    System.out.println("works");
                     done = true;
+                    statusCode = response.code();
                 } else if (response.code() >= 400 && response.code() < 600) {
                     attempts++;
+                    statusCode = response.code();
                     // Implementing an exponential backoff strategy
                     Thread.sleep(1000);
                 }
@@ -42,11 +45,13 @@ public class CallAPIs {
             }
         }
         if (attempts > MAX_RETRIES) {
-            System.out.println("failed");
+            // TODO deal with failure
+//            System.out.println("failed");
         }
+        return statusCode;
     }
 
-    public static void getAPI(String IPAddr, OkHttpClient client) {
+    public static int getAPI(String IPAddr, OkHttpClient client) {
         Request request = new Request.Builder()
             .url(IPAddr + "/albums/1")
             .get()
@@ -54,13 +59,16 @@ public class CallAPIs {
 
         int attempts = 0;
         boolean done = false;
+        int statusCode = 0;
         while (attempts <= MAX_RETRIES && !done) {
             try (Response response = client.newCall(request).execute()) {
                 if (response.isSuccessful()){
-                    System.out.println("works");
+//                    System.out.println("works");
                     done = true;
+                    statusCode = response.code();
                 } else if (response.code() >= 400 && response.code() < 600) {
                     attempts++;
+                    statusCode = response.code();
                     // Implementing an exponential backoff strategy
                     Thread.sleep(1000);
                 }
@@ -69,7 +77,9 @@ public class CallAPIs {
             }
         }
         if (attempts > MAX_RETRIES) {
-            System.out.println("failed");
+            // TODO deal with failure
+//            System.out.println("failed");
         }
+        return statusCode;
     }
 }

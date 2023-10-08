@@ -1,7 +1,7 @@
-package model;
+package client1;
 
-import static model.CallAPIs.getAPI;
-import static model.CallAPIs.postAPI;
+import static client1.CallAPIs.getAPI;
+import static client1.CallAPIs.postAPI;
 
 import okhttp3.OkHttpClient;
 

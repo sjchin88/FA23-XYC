@@ -1,18 +1,35 @@
-import model.ClientThread;
+package client2;
 
-public class Main1 {
+import static client2.WriteCSV.writeLogsToCSV;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Main2 {
 
     public static void main(String[] args) throws InterruptedException {
-        String javaServerAddr = "http://34.214.59.208:8080/AlbumServlet_war";
+        String publicIPv4 = "35.85.222.229";
+        String javaServerAddr = "http://" + publicIPv4 + ":8080/AlbumServlet_war";
 //        String javaServerAddr = "http://localhost:8080/AlbumServlet_war_exploded/";
-        String goServerAddr = "http://34.214.59.208:3000";
-//        test(1, 1, 0, javaServerAddr);
+        String goServerAddr = "http://" + publicIPv4 + ":3000";
+
+        test(1, 1, 0, javaServerAddr);
 //        test(10, 10, 2, javaServerAddr);
 //        test(10, 20, 2, javaServerAddr);
 //        test(10, 30, 2, javaServerAddr);
 //        test(10, 10, 2, goServerAddr);
 //        test(10, 20, 2, goServerAddr);
 //        test(10, 30, 2, goServerAddr);
+
+        // Consolidate logs from all threads
+        List<RequestLog> allLogs = new ArrayList<>(ClientThread.requestLogs);
+
+        // Write logs to CSV
+        writeLogsToCSV(allLogs);
+
+        // Print statistics
+        Statistics.printStats(allLogs);
     }
 
     public static void test(int threadGroupSize, int numThreadGroups, long delay, String IPAddr)
