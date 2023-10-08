@@ -3,12 +3,11 @@ package client2;
 import java.util.Objects;
 
 public class RequestLog {
+
     private long startTime;
     private String requestType;
     private long latency;
     private int responseCode;
-
-    public static final RequestLog POISON_PILL = new RequestLog(-1, "END", -1, -1);
 
     public RequestLog(long startTime, String requestType, long latency, int responseCode) {
         this.startTime = startTime;

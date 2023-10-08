@@ -4,7 +4,6 @@ import static client2.WriteCSV.writeLogsToCSV;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Main2 {
 
@@ -14,13 +13,14 @@ public class Main2 {
 //        String javaServerAddr = "http://localhost:8080/AlbumServlet_war_exploded/";
         String goServerAddr = "http://" + publicIPv4 + ":3000";
 
-        test(1, 1, 0, javaServerAddr);
-//        test(10, 10, 2, javaServerAddr);
-//        test(10, 20, 2, javaServerAddr);
-//        test(10, 30, 2, javaServerAddr);
-//        test(10, 10, 2, goServerAddr);
-//        test(10, 20, 2, goServerAddr);
-//        test(10, 30, 2, goServerAddr);
+//        test(1, 1, 0, javaServerAddr);
+        System.out.println();
+        test(10, 10, 2, javaServerAddr);
+        test(10, 20, 2, javaServerAddr);
+        test(10, 30, 2, javaServerAddr);
+        test(10, 10, 2, goServerAddr);
+        test(10, 20, 2, goServerAddr);
+        test(10, 30, 2, goServerAddr);
 
         // Consolidate logs from all threads
         List<RequestLog> allLogs = new ArrayList<>(ClientThread.requestLogs);

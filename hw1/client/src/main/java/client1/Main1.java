@@ -3,10 +3,11 @@ package client1;
 public class Main1 {
 
     public static void main(String[] args) throws InterruptedException {
-        String javaServerAddr = "http://34.214.59.208:8080/AlbumServlet_war";
+        String publicIPv4 = "35.85.222.229";
+        String javaServerAddr = "http://" + publicIPv4 + ":8080/AlbumServlet_war";
 //        String javaServerAddr = "http://localhost:8080/AlbumServlet_war_exploded/";
-        String goServerAddr = "http://34.214.59.208:3000";
-//        test(1, 1, 0, javaServerAddr);
+        String goServerAddr = "http://" + publicIPv4 + ":3000";
+        test(1, 1, 0, javaServerAddr);
 //        test(10, 10, 2, javaServerAddr);
 //        test(10, 20, 2, javaServerAddr);
 //        test(10, 30, 2, javaServerAddr);
